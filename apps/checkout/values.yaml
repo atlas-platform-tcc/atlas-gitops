@@ -4,7 +4,7 @@
 replicaCount: 2
 image:
   repository: ghcr.io/atlas-platform-tcc/checkout
-  tag: "cbf8682b80a137092e9bf7bacad9c248f7c55936"
+  tag: "638e9f066935aa4d06d8531f7f5b0d3f7a308e56"
 env:
   - name: DB_TYPE
     value: "postgres"
