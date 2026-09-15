@@ -1,0 +1,22 @@
+# Desired state for "hello" — the values Argo CD reads (single source of truth).
+#
+# In the full flow this file is produced by propagating the app repo's
+# deploy/values.yaml plus the image pinned by the Deploy job. For the walking
+# skeleton it is authored manually.
+
+image:
+  repository: hello-service   # image loaded into kind (kind load docker-image)
+  tag: dev                    # day-2: immutable digest (SHA)
+  pullPolicy: IfNotPresent
+
+# Propagated from the app repo's deploy/values.yaml:
+replicaCount: 2
+env:
+  - name: LOG_LEVEL
+    value: "info"
+
+# Local access via kind (NodePort mapped to host:30080):
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080

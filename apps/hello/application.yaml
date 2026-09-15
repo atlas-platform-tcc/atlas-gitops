@@ -1,0 +1,31 @@
+# Argo CD Application for the "hello" service (walking skeleton).
+#
+# Multi-source: the shared base chart comes from atlas-templates; the per-service
+# desired state (values) comes from this repo (atlas-gitops), referenced via $values.
+# Requires Argo CD 2.6+ (multiple sources).
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/atlas-platform-tcc/atlas-templates.git
+      targetRevision: main
+      path: charts/base
+      helm:
+        valueFiles:
+          - $values/apps/hello/values.yaml
+    - repoURL: https://github.com/atlas-platform-tcc/atlas-gitops.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hello
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
