@@ -9,6 +9,8 @@ reconciles the declared state into the cluster.
 - `apps/<service>/application.yaml` — Argo CD `Application` for each service (multi-source: base
   chart from `atlas-templates`, values from here).
 - `apps/<service>/values.yaml` — per-service desired state (replicas, env, image, service).
+- `bootstrap/root.yaml` — root `Application` (app-of-apps): discovers every `apps/**/application.yaml`
+  so a single apply brings all services back from git.
 
 ## Stack
 
@@ -17,15 +19,17 @@ reconciles the declared state into the cluster.
 
 ## Run
 
+The root Application (`bootstrap/root.yaml`, applied once at bootstrap) discovers every
+`apps/<service>/application.yaml` and reconciles it. To inspect:
+
 ```bash
-# Apply a service's Application to the cluster (Argo CD reconciles it)
-kubectl apply -f apps/hello/application.yaml
-argocd app get hello
+kubectl -n argocd get applications
+argocd app get <service>
 ```
 
 ## Test
 
 ```bash
-# Validate manifests
-kubectl apply --dry-run=client -f apps/hello/application.yaml
+# Validate a service's manifest
+kubectl apply --dry-run=client -f apps/<service>/application.yaml
 ```
