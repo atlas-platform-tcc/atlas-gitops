@@ -1,0 +1,8 @@
+# Desired state for billing — consumed by its Argo CD Application ($values).
+# PROVISIONING SKELETON: no image is pinned and replicaCount is 0, so Argo CD
+# reconciles the Application without running any workload. The first day-2 Deploy
+# pins the image digest and sets the real replica count.
+replicaCount: 0
+env:
+  - name: DB_TYPE
+    value: "postgres"
