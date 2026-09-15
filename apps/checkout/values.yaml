@@ -1,0 +1,10 @@
+# Desired state for checkout — consumed by its Argo CD Application ($values).
+# Base deploy: pins the image built from the service's initial commit and runs the
+# requested replicas. Day-2 Deploys update image.tag to a newer commit SHA.
+replicaCount: 2
+image:
+  repository: ghcr.io/atlas-platform-tcc/checkout
+  tag: "cbf8682b80a137092e9bf7bacad9c248f7c55936"
+env:
+  - name: DB_TYPE
+    value: "postgres"
