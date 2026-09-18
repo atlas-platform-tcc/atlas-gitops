@@ -1,0 +1,15 @@
+# Desired state for orders-service — consumed by its Argo CD Application ($values).
+# Base deploy: pins the image built from the service's initial commit and runs the
+# requested replicas. Day-2 Deploys update image.tag to a newer commit SHA.
+replicaCount: 2
+image:
+  repository: ghcr.io/atlas-platform-tcc/orders-service
+  tag: "26395372e1fa6eec48ba34dca66708b81892b55f"
+ingress:
+  enabled: true
+  host: orders-service.127.0.0.1.nip.io
+database:
+  enabled: true
+env:
+  - name: DB_TYPE
+    value: "postgres"
