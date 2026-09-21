@@ -31,5 +31,8 @@ argocd app get <service>
 
 ```bash
 # Validate a service's manifest
-kubectl apply --dry-run=client -f apps/<service>/application.yaml
+kubectl apply --dry-run=client --validate=false -f apps/<service>/application.yaml
 ```
+
+> `--validate=false` is required because the `Application` kind is a CRD; full schema
+> validation only works against a cluster where the Argo CD CRDs are installed.
