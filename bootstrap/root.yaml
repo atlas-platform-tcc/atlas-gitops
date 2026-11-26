@@ -23,3 +23,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
+      # Zero services is a valid desired state (fresh platform, or the last service was
+      # deprovisioned). Without this, Argo CD refuses an auto-sync that would leave the
+      # root with no resources, and the last service's Application is never pruned.
+      allowEmpty: true
