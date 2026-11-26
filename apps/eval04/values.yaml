@@ -4,7 +4,7 @@
 replicaCount: 2
 image:
   repository: ghcr.io/atlas-platform-tcc/eval04
-  tag: "a50a4a9c54b1082c5b7ab742c8527c5070eaac01"
+  tag: "92c875bfcdbce044ac67ebcc462dbbcd4b5e7b88"
 ingress:
   enabled: true
   host: eval04.127.0.0.1.nip.io
